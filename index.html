@@ -1,0 +1,1610 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun Sayang</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .page {
+            display: none;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .parallax-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            opacity: 0.08;
+            z-index: -2;
+            transform: translateZ(0);
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #ff6f91;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: float 6s infinite ease-in-out;
+            opacity: 0.8;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            50% { transform: translateY(50vh) rotate(180deg); }
+            100% { transform: translateY(-10vh) rotate(360deg); }
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: rgba(255, 107, 157, 0.8);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* HOME PAGE STYLES */
+        .header {
+            text-align: center;
+            padding: 60px 0 40px;
+            position: relative;
+        }
+
+        .birthday-crown {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: crownShine 2s ease-in-out infinite;
+        }
+
+        @keyframes crownShine {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.05); filter: brightness(1.3); }
+        }
+
+        .title {
+            font-size: 3.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3, #54a0ff);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 4s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 50% 100%; }
+            75% { background-position: 50% 0%; }
+        }
+
+        .subtitle {
+            font-size: 1.8rem;
+            color: rgba(255, 255, 255, 0.95);
+            font-style: italic;
+            margin-bottom: 30px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .special-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .link-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s;
+        }
+
+        .link-card:hover::before {
+            left: 100%;
+        }
+
+        .link-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(255, 107, 157, 0.3);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .link-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .link-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .link-desc {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        /* MEMORY LANE PAGE */
+        .memory-timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .memory-item {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 40px 0;
+            position: relative;
+            border-left: 5px solid #ff6b9d;
+            transform: translateX(-30px);
+            opacity: 0;
+            animation: slideInTimeline 0.8s ease-out forwards;
+        }
+
+        .memory-item:nth-child(even) {
+            border-left: none;
+            border-right: 5px solid #ff6b9d;
+            transform: translateX(30px);
+        }
+
+        @keyframes slideInTimeline {
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .memory-date {
+            background: #ff6b9d;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .memory-content {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* LOVE LETTERS PAGE */
+        .letter-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding-top: 60px;
+        }
+
+        .letter {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            border-radius: 15px;
+            padding: 50px;
+            margin: 40px 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            position: relative;
+            font-family: 'Courier New', monospace;
+            line-height: 1.8;
+            transform: rotate(-1deg);
+            transition: transform 0.3s ease;
+        }
+
+        .letter:nth-child(even) {
+            transform: rotate(1deg);
+        }
+
+        .letter:hover {
+            transform: rotate(0deg) scale(1.02);
+        }
+
+        .letter-date {
+            color: #ff6b9d;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .letter-content {
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .letter-signature {
+            text-align: right;
+            font-style: italic;
+            color: #ff6b9d;
+            font-weight: bold;
+        }
+
+        /* PHOTO GALLERY PAGE */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding-top: 60px;
+        }
+
+        .photo-item {
+            aspect-ratio: 1;
+            background: linear-gradient(45deg, #ff9a9e, #fecfef);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 15px 35px rgba(255, 107, 157, 0.4);
+        }
+
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        /* WISHES PAGE */
+        .wish-form {
+            max-width: 600px;
+            margin: 60px auto 0;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* SURPRISE PAGE */
+        .surprise-container {
+            max-width: 900px;
+            margin: 60px auto 0;
+            text-align: center;
+        }
+
+        .surprise-photo-frame {
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(255, 107, 157, 0.4);
+            animation: photoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes photoGlow {
+            0%, 100% { 
+                box-shadow: 0 25px 60px rgba(255, 107, 157, 0.4);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 30px 80px rgba(255, 107, 157, 0.6);
+                transform: scale(1.02);
+            }
+        }
+
+        .surprise-photo-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 8px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+        }
+
+        .surprise-message {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 50px;
+            margin: 40px 0;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+
+        .surprise-message::before {
+            content: '💕';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            animation: heartPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes heartPulse {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.2); }
+        }
+
+        .surprise-text {
+            font-size: 1.5rem;
+            line-height: 2;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 30px;
+        }
+
+        .surprise-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 2rem;
+            animation: floatHeart 8s ease-in-out infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes floatHeart {
+            0% { 
+                transform: translateY(100vh) rotate(0deg); 
+                opacity: 0; 
+            }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { 
+                transform: translateY(-10vh) rotate(360deg); 
+                opacity: 0; 
+            }
+        }
+
+        .celebrate-btn {
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            border-radius: 30px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin: 20px auto;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4);
+            animation: btnGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes btnGlow {
+            0%, 100% { box-shadow: 0 10px 30px rgba(255, 107, 157, 0.4); }
+            50% { box-shadow: 0 15px 40px rgba(255, 107, 157, 0.7); }
+        }
+
+        .celebrate-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 15px 45px rgba(255, 107, 157, 0.8);
+        }
+
+        .wish-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            margin: 15px 0;
+            font-size: 1.1rem;
+            color: #333;
+            outline: none;
+        }
+
+        .wish-textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .wish-btn {
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 20px auto;
+        }
+
+        .wish-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 107, 157, 0.5);
+        }
+
+        /* MUSIC PAGE */
+        .music-player {
+            max-width: 500px;
+            margin: 60px auto 0;
+            text-align: center;
+        }
+
+        .album-cover {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(45deg, #ff9a9e, #fecfef);
+            border-radius: 50%;
+            margin: 0 auto 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            animation: albumSpin 10s linear infinite;
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.3);
+        }
+
+        @keyframes albumSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .song-title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .song-artist {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+        }
+
+        .playlist {
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .playlist-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .playlist-item:hover {
+            background: rgba(255, 107, 157, 0.3);
+            transform: translateX(10px);
+        }
+
+        .playlist-item.playing {
+            background: rgba(255, 107, 157, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .audio-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 107, 157, 0.8);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 107, 157, 1);
+            transform: scale(1.1);
+        }
+
+        .control-btn.play-pause {
+            width: 80px;
+            height: 80px;
+            font-size: 2rem;
+            box-shadow: 0 8px 20px rgba(255, 107, 157, 0.5);
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .volume-slider {
+            width: 150px;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.3);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #ff6b9d;
+            cursor: pointer;
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #ff6b9d;
+            cursor: pointer;
+            border: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+            margin: 20px 0;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .progress-filled {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b9d, #ff8fab);
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* Back to home button */
+        .back-home {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #ff6b9d, #c44569);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
+        }
+
+        .back-home:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.6);
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                top: 10px;
+                right: 10px;
+                gap: 5px;
+            }
+            .nav-btn {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+            .title { font-size: 2.8rem; }
+            .special-links { grid-template-columns: 1fr; gap: 20px; }
+            .letter { padding: 30px; margin: 20px 0; }
+            .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+            .album-cover { width: 250px; height: 250px; font-size: 4rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="parallax-bg"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+        <a href="#" class="nav-btn active" onclick="showPage('home')">🏠 Home</a>
+        <a href="#" class="nav-btn" onclick="showPage('memories')">📸 Kenangan</a>
+        <a href="#" class="nav-btn" onclick="showPage('letters')">💌 Surat Cinta</a>
+        <a href="#" class="nav-btn" onclick="showPage('gallery')">🖼️ Galeri</a>
+        <a href="#" class="nav-btn" onclick="showPage('music')">🎵 Musik Kita</a>
+        <a href="#" class="nav-btn" onclick="showPage('wishes')">🌟 Harapan</a>
+    </nav>
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+        <div class="container">
+            <div class="header">
+                <div class="birthday-crown">👑</div>
+                <h1 class="title">Happy Birthday</h1>
+                <p class="subtitle">Untuk Ratu Hatiku</p>
+            </div>
+
+            <div class="special-links">
+                <div class="link-card" onclick="showPage('memories')">
+                    <span class="link-icon">📸</span>
+                    <h3 class="link-title">Memory Lane</h3>
+                    <p class="link-desc">Perjalanan indah kenangan kita bersama dari awal hingga sekarang</p>
+                </div>
+
+                <div class="link-card" onclick="showPage('letters')">
+                    <span class="link-icon">💌</span>
+                    <h3 class="link-title">Love Letters</h3>
+                    <p class="link-desc">Surat-surat cinta yang terpendam di hati untuk dirimu</p>
+                </div>
+
+                <div class="link-card" onclick="showPage('gallery')">
+                    <span class="link-icon">🖼️</span>
+                    <h3 class="link-title">Photo Gallery</h3>
+                    <p class="link-desc">Koleksi momen berharga yang telah kita lalui bersama</p>
+                </div>
+
+                <div class="link-card" onclick="showPage('music')">
+                    <span class="link-icon">🎵</span>
+                    <h3 class="link-title">Our Soundtrack</h3>
+                    <p class="link-desc">Lagu-lagu yang mengingatkan kita pada momen spesial</p>
+                </div>
+
+                <div class="link-card" onclick="showPage('wishes')">
+                    <span class="link-icon">🌟</span>
+                    <h3 class="link-title">Birthday Wishes</h3>
+                    <p class="link-desc">Doa dan harapan terbaik untuk tahun barumu</p>
+                </div>
+
+                <div class="link-card" onclick="showPage('surprise')">
+                    <span class="link-icon">🎁</span>
+                    <h3 class="link-title">Special Surprise</h3>
+                    <p class="link-desc">Kejutan istimewa khusus untukmu di hari bahagiamu</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MEMORY LANE PAGE -->
+    <div id="memories" class="page">
+        <div class="container">
+            <h1 class="title" style="text-align: center; padding: 40px 0;">📸 Memory Lane</h1>
+            <div class="memory-timeline">
+                <div class="memory-item" style="animation-delay: 0.1s;">
+                    <div class="memory-date">Pertama Kali Bertemu</div>
+                    <div class="memory-content">Hari itu mata kita bertemu untuk pertama kali, dan aku tahu ada sesuatu yang istimewa. Senyummu membuat dunia terasa lebih cerah dan hati ini berdetak lebih cepat.</div>
+                </div>
+                <div class="memory-item" style="animation-delay: 0.3s;">
+                    <div class="memory-date">Kencan Pertama</div>
+                    <div class="memory-content">Gugup tapi bahagia, itulah yang kurasakan saat kita pergi kencan pertama. Percakapan kita mengalir natural, dan aku tahu aku ingin menghabiskan lebih banyak waktu bersamamu.</div>
+                </div>
+                <div class="memory-item" style="animation-delay: 0.5s;">
+                    <div class="memory-date">Momen "I Love You"</div>
+                    <div class="memory-content">Kata-kata itu keluar begitu saja dari hatiku yang tak bisa lagi menyembunyikan perasaan. Dan saat kamu membalasnya, dunia terasa sempurna.</div>
+                </div>
+                <div class="memory-item" style="animation-delay: 0.7s;">
+                    <div class="memory-date">Anniversary Pertama</div>
+                    <div class="memory-content">Satu tahun berlalu terasa seperti sekejap mata. Kita sudah melewati banyak hal bersama, tawa dan air mata, yang membuat hubungan kita semakin kuat.</div>
+                </div>
+                <div class="memory-item" style="animation-delay: 0.9s;">
+                    <div class="memory-date">Hari Ini</div>
+                    <div class="memory-content">Dan di hari ulang tahunmu ini, aku berterima kasih untuk setiap momen yang kita lalui bersama. Kamu adalah hadiah terbaik dalam hidupku.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOVE LETTERS PAGE -->
+    <div id="letters" class="page">
+        <div class="container">
+            <h1 class="title" style="text-align: center; padding: 40px 0;">💌 Love Letters</h1>
+            <div class="letter-container">
+                <div class="letter">
+                    <div class="letter-date">Untuk Hari Spesialmu</div>
+                    <div class="letter-content">
+                        Sayang,<br><br>
+                        Di hari yang istimewa ini, aku ingin mengatakan betapa bersyukurnya aku memilikimu. Kamu bukan hanya kekasih, tapi juga sahabat terbaik, tempat aku berbagi cerita, dan rumah tempat hatiku beristirahat.<br><br>
+                        Setiap hari bersamamu adalah hadiah. Senyummu adalah sinar matahari yang menerangi hari-hariku, dan tawamu adalah musik terindah yang pernah kudengar.
+                    </div>
+                    <div class="letter-signature">Dengan cinta yang tak berujung,<br>Yang selalu mencintaimu ❤️</div>
+                </div>
+
+                <div class="letter">
+                    <div class="letter-date">Untuk Masa Depan Kita</div>
+                    <div class="letter-content">
+                        My Dearest,<br><br>
+                        Aku bermimpi tentang masa depan kita bersama. Rumah kecil dengan taman bunga, pagi-pagi dengan kopi hangat, dan malam-malam dengan percakapan yang tak ada habisnya.<br><br>
+                        Aku ingin menua bersamamu, melihat rambut kita memutih, dan masih bisa tertawa bersama tentang kenangan-kenangan indah kita.
+                    </div>
+                    <div class="letter-signature">Selamanya milikmu,<br>Cinta sejatimu 💕</div>
+                </div>
+
+                <div class="letter">
+                    <div class="letter-date">Terima Kasih</div>
+                    <div class="letter-content">
+                        Sayangku,<br><br>
+                        Terima kasih sudah menjadi dirimu yang luar biasa. Terima kasih sudah mencintaiku apa adanya, dengan segala kelebihan dan kekuranganku.<br><br>
+                        Terima kasih sudah membuat hidup ini lebih berarti, lebih indah, dan lebih berwarna. Kamu adalah keajaiban terbesar dalam hidupku.
+                    </div>
+                    <div class="letter-signature">Dengan rasa syukur yang mendalam,<br>Orang yang paling mencintaimu 🌹</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PHOTO GALLERY PAGE -->
+    <div id="gallery" class="page">
+        <div class="container">
+            <h1 class="title" style="text-align: center; padding: 40px 0;">🖼️ Photo Gallery</h1>
+            <div class="gallery-grid">
+                <div class="photo-item" onclick="createPhotoEffect(this)">
+                    💑
+                    <div class="photo-caption">Foto Pertama Kita</div>
+                </div>
+                <div class="photo-item" onclick="createPhotoEffect(this)">
+                    🌅
+                    <div class="photo-caption">Sunrise Bersama</div>
+                </div>
+                <div class="photo-item" onclick="createPhotoEffect(this)">
+                    🍽️
+                    <div class="photo-caption">Dinner Romantis</div>
+                </div>
+                <div class="photo-item" onclick="createPhotoEffect(this)">
+                    🎡
+                    <div class="photo-caption">Di Taman Hiburan</div>
+                </div>
+                <div class="photo-item" onclick="createPhotoEffect(this)">
+                    🏖️
+                    <div class="photo-caption">Liburan Pantai</div>
+                </div>
+                <div class="photo-item" onclick="createPhotoEffect(this)">
+                    🎂
+                    <div class="photo-caption">Ulang Tahun Bersama</div>
+                </div>
+                <div class="photo-item" onclick="createPhotoEffect(this)">
+                    🌸
+                    <div class="photo-caption">Spring Walk</div>
+                </div>
+                <div class="photo-item" onclick="createPhotoEffect(this)">
+                    ❤️
+                    <div class="photo-caption">Momen Spesial</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MUSIC PAGE -->
+    <div id="music" class="page">
+        <div class="container">
+            <h1 class="title" style="text-align: center; padding: 40px 0;">🎵 Our Soundtrack</h1>
+            <div class="music-player">
+                <div class="album-cover" id="albumCover">🎵</div>
+                <div class="song-title" id="songTitle" >Perfect - Ed Sheeran</div>
+                <div class="song-artist" id="songArtist" >Lagu Kita</div>
+                
+                <!-- Audio Element (Hidden) -->
+                <audio id="audioPlayer" style="display: none;">
+                    <source id="audioSource" src="music/Ed Sheeran-Perfect.mp3" type="audio/mpeg">
+                </audio>
+                
+                <!-- Audio Controls -->
+                <div class="audio-controls">
+                    <button class="control-btn" onclick="previousSong()" title="Previous">⏮️</button>
+                    <button class="control-btn play-pause" onclick="togglePlay()" id="playPauseBtn" title="Play/Pause">▶️</button>
+                    <button class="control-btn" onclick="nextSong()" title="Next">⏭️</button>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="progress-bar" onclick="seek(event)" id="progressBar">
+                    <div class="progress-filled" id="progressFilled"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-top: 5px;">
+                    <span id="currentTime">0:00</span>
+                    <span id="duration">0:00</span>
+                </div>
+                
+                <!-- Volume Control -->
+                <div class="volume-control" style="justify-content: center;">
+                    <span style="font-size: 1.2rem;">🔉</span>
+                    <input type="range" min="0" max="100" value="70" class="volume-slider" id="volumeSlider" onchange="changeVolume()">
+                    <span style="font-size: 1.2rem;">🔊</span>
+                </div>
+                
+                <div class="playlist">
+                    <h3 style="text-align: center; margin-bottom: 20px; color: #fff;">Playlist Spesial</h3>
+                    <div class="playlist-item" onclick="playSong(0)" data-index="0">
+                        <span>💕</span>
+                        <div>Perfect - Ed Sheeran</div>
+                    </div>
+                    <div class="playlist-item" onclick="playSong(1)" data-index="1">
+                        <span>🎹</span>
+                        <div>All of Me - John Legend</div>
+                    </div>
+                    <div class="playlist-item" onclick="playSong(2)" data-index="2">
+                        <span>⭐</span>
+                        <div>A Thousand Years - Christina Perri</div>
+                    </div>
+                    <div class="playlist-item" onclick="playSong(3)" data-index="3">
+                        <span>💍</span>
+                        <div>Marry You - Bruno Mars</div>
+                    </div>
+                    <div class="playlist-item" onclick="playSong(4)" data-index="4">
+                        <span>💭</span>
+                        <div>Thinking Out Loud - Ed Sheeran</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WISHES PAGE -->
+    <div id="wishes" class="page">
+        <div class="container">
+            <h1 class="title" style="text-align: center; padding: 40px 0;">🌟 Birthday Wishes</h1>
+            <div class="wish-form">
+                <h3 style="text-align: center; margin-bottom: 30px; color: #fff;">Doa & Harapan Terbaik</h3>
+                <input type="text" class="wish-input" placeholder="Nama (opsional)" id="wishName">
+                <textarea class="wish-input wish-textarea" placeholder="Tuliskan doa dan harapan terbaikmu di sini..." id="wishMessage"></textarea>
+                <button class="wish-btn" onclick="submitWish()">Kirim Doa & Harapan ✨</button>
+                
+                <div id="wishDisplay" style="margin-top: 40px;">
+                    <div class="submitted-wish">
+                        <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; margin: 15px 0;">
+                            <div style="color: #ff8fab; font-weight: bold; margin-bottom: 10px;">💖 Dari Hatimu:</div>
+                            <div style="color: rgba(255,255,255,0.9); line-height: 1.6;">"Semoga kamu selalu bahagia, sehat, dan dikelilingi orang-orang yang mencintaimu. Semoga semua impianmu tercapai dan hidupmu penuh dengan keajaiban kecil yang membuat tersenyum setiap hari. Happy Birthday, Beautiful! 🎂✨"</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SURPRISE PAGE -->
+    <div id="surprise" class="page">
+        <div class="surprise-hearts" id="surpriseHearts"></div>
+        <div class="container">
+            <h1 class="title" style="text-align: center; padding: 40px 0;">🎁 Special Surprise</h1>
+            
+            <div class="surprise-container">
+                <div class="surprise-photo-frame">
+                    <img src="https://i.ibb.co.com/LCmGvXq/couple-balloons.jpg" alt="Our Beautiful Moment" id="surprisePhoto">
+                </div>
+                
+                <div class="surprise-message">
+                    <p class="surprise-text">
+                        Ini adalah momen terindah yang pernah kita lalui bersama. Foto ini menangkap kebahagiaan sejati kita, 
+                        seperti balon-balon yang terbang bebas di langit, cinta kita juga terbang tinggi tanpa batas. 
+                        Setiap momen bersamamu adalah petualangan yang tak pernah ingin kuakhiri.
+                    </p>
+                    <p class="surprise-text">
+                        Di hari ulang tahunmu yang spesial ini, aku ingin kamu tahu bahwa kamu adalah hadiah terbesar dalam hidupku. 
+                        Seperti pemandangan indah di belakang kita, masa depan kita akan penuh dengan keindahan dan keajaiban.
+                    </p>
+                    <p style="font-size: 1.3rem; color: #ff8fab; font-weight: bold; margin-top: 30px;">
+                        Happy Birthday, My Love! 🎂💕
+                    </p>
+                </div>
+                
+                <button class="celebrate-btn" onclick="triggerMassiveCelebration()">
+                    🎉 Rayakan Bersama! 🎉
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Back to Home Button (for all pages except home) -->
+    <div class="back-home" onclick="showPage('home')" style="display: none;" id="backBtn">🏠</div>
+
+    <script>
+        // Page Navigation
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation
+            const navBtns = document.querySelectorAll('.nav-btn');
+            navBtns.forEach(btn => btn.classList.remove('active'));
+            
+            // Find and activate corresponding nav button
+            const activeBtn = Array.from(navBtns).find(btn => {
+                const onclick = btn.getAttribute('onclick');
+                return onclick && onclick.includes(pageId);
+            });
+            if (activeBtn) activeBtn.classList.add('active');
+            
+            // Show/hide back button
+            const backBtn = document.getElementById('backBtn');
+            if (pageId === 'home') {
+                backBtn.style.display = 'none';
+            } else {
+                backBtn.style.display = 'flex';
+            }
+            
+            // Smooth scroll to top
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // Create floating particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.animationDelay = Math.random() * 6 + 's';
+            particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            
+            const colors = ['#ff6f91', '#ff8fab', '#feca57', '#ff6b6b', '#54a0ff'];
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            document.getElementById('particles').appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 10000);
+        }
+
+        // Music Player Functions
+        let currentSongIndex = 0;
+        let isPlaying = false;
+        
+        // Playlist data with free music URLs
+        const playlist = [
+            {
+                title: 'Perfect - Ed Sheeran',
+                artist: 'Lagu Kita',
+                icon: '💕',
+                // Using free music library - replace with your actual music URLs
+                url: 'music/Ed Sheeran-Perfect.mp3'
+            },
+            {
+                title: 'All of Me - John Legend',
+                artist: 'Semua Tentang Kamu',
+                icon: '🎹',
+                url: 'music/John Legend-All of Me.mp3'
+            },
+            {
+                title: 'A Thousand Years - Christina Perri',
+                artist: 'Cinta Abadi',
+                icon: '⭐',
+                url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
+            },
+            {
+                title: 'Marry You - Bruno Mars',
+                artist: 'Mimpi Masa Depan',
+                icon: '💍',
+                url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3'
+            },
+            {
+                title: 'Thinking Out Loud - Ed Sheeran',
+                artist: 'Tentang Kita',
+                icon: '💭',
+                url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3'
+            }
+        ];
+
+        // Initialize audio player
+        const audioPlayer = document.getElementById('audioPlayer');
+        const audioSource = document.getElementById('audioSource');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const progressFilled = document.getElementById('progressFilled');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationEl = document.getElementById('duration');
+
+        // Play specific song
+        function playSong(index) {
+            currentSongIndex = index;
+            const song = playlist[index];
+            
+            // Update UI
+            document.getElementById('songTitle').textContent = song.title;
+            document.getElementById('songArtist').textContent = song.artist;
+            document.getElementById('albumCover').textContent = song.icon;
+            
+            // Update playlist highlighting
+            document.querySelectorAll('.playlist-item').forEach((item, i) => {
+                if (i === index) {
+                    item.classList.add('playing');
+                } else {
+                    item.classList.remove('playing');
+                }
+            });
+            
+            // Load and play audio
+            audioSource.src = song.url;
+            audioPlayer.load();
+            audioPlayer.play();
+            isPlaying = true;
+            playPauseBtn.textContent = '⏸️';
+            
+            // Visual effects
+            const albumCover = document.getElementById('albumCover');
+            albumCover.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                albumCover.style.transform = 'scale(1)';
+            }, 200);
+            
+            createMusicEffect();
+        }
+
+        // Toggle play/pause
+        function togglePlay() {
+            if (isPlaying) {
+                audioPlayer.pause();
+                playPauseBtn.textContent = '▶️';
+                isPlaying = false;
+            } else {
+                if (audioSource.src === '') {
+                    playSong(0);
+                } else {
+                    audioPlayer.play();
+                    playPauseBtn.textContent = '⏸️';
+                    isPlaying = true;
+                }
+            }
+        }
+
+        // Previous song
+        function previousSong() {
+            currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+            playSong(currentSongIndex);
+        }
+
+        // Next song
+        function nextSong() {
+            currentSongIndex = (currentSongIndex + 1) % playlist.length;
+            playSong(currentSongIndex);
+        }
+
+        // Change volume
+        function changeVolume() {
+            const volume = document.getElementById('volumeSlider').value;
+            audioPlayer.volume = volume / 100;
+        }
+
+        // Seek function
+        function seek(event) {
+            const progressBar = document.getElementById('progressBar');
+            const clickX = event.offsetX;
+            const width = progressBar.offsetWidth;
+            const duration = audioPlayer.duration;
+            audioPlayer.currentTime = (clickX / width) * duration;
+        }
+
+        // Format time
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        // Update progress bar
+        if (audioPlayer) {
+            audioPlayer.addEventListener('timeupdate', () => {
+                const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+                progressFilled.style.width = progress + '%';
+                currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+            });
+
+            audioPlayer.addEventListener('loadedmetadata', () => {
+                durationEl.textContent = formatTime(audioPlayer.duration);
+            });
+
+            audioPlayer.addEventListener('ended', () => {
+                nextSong();
+            });
+        }
+
+        // Initialize volume
+        changeVolume();
+
+        function changeSong(title, subtitle, icon) {
+            document.getElementById('songTitle').textContent = title;
+            document.getElementById('songArtist').textContent = subtitle;
+            document.getElementById('albumCover').textContent = icon;
+            
+            const albumCover = document.getElementById('albumCover');
+            albumCover.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                albumCover.style.transform = 'scale(1)';
+            }, 200);
+            
+            createMusicEffect();
+        }
+
+        function createMusicEffect() {
+            // Create music notes
+            const notes = ['🎵', '🎶', '🎼', '♪', '♫'];
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const note = document.createElement('div');
+                    note.innerHTML = notes[Math.floor(Math.random() * notes.length)];
+                    note.style.position = 'fixed';
+                    note.style.left = (Math.random() * 100) + 'vw';
+                    note.style.top = '50%';
+                    note.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                    note.style.color = '#ff8fab';
+                    note.style.zIndex = '1000';
+                    note.style.pointerEvents = 'none';
+                    note.style.animation = 'noteFloat 3s ease-out forwards';
+                    
+                    const style = document.createElement('style');
+                    style.textContent = `
+                        @keyframes noteFloat {
+                            0% { transform: translateY(0) scale(1); opacity: 1; }
+                            100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                    
+                    document.body.appendChild(note);
+                    
+                    setTimeout(() => {
+                        note.remove();
+                    }, 3000);
+                }, i * 200);
+            }
+        }
+
+        // Photo Gallery Effects
+        function createPhotoEffect(photoElement) {
+            // Add click effect
+            photoElement.style.transform = 'scale(1.1) rotate(5deg)';
+            setTimeout(() => {
+                photoElement.style.transform = 'scale(1.05) rotate(2deg)';
+            }, 200);
+            
+            // Create heart burst
+            const hearts = ['💖', '💕', '💗', '💓', '❤️'];
+            for (let i = 0; i < 6; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                    
+                    const rect = photoElement.getBoundingClientRect();
+                    heart.style.position = 'fixed';
+                    heart.style.left = (rect.left + rect.width/2) + 'px';
+                    heart.style.top = (rect.top + rect.height/2) + 'px';
+                    heart.style.fontSize = '20px';
+                    heart.style.zIndex = '1000';
+                    heart.style.pointerEvents = 'none';
+                    
+                    const angle = (i * 60) * (Math.PI / 180);
+                    const distance = 100;
+                    const targetX = Math.cos(angle) * distance;
+                    const targetY = Math.sin(angle) * distance;
+                    
+                    heart.style.animation = `heartBurst 1.5s ease-out forwards`;
+                    
+                    const style = document.createElement('style');
+                    style.textContent = `
+                        @keyframes heartBurst {
+                            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+                            100% { transform: translate(calc(-50% + ${targetX}px), calc(-50% + ${targetY}px)) scale(0); opacity: 0; }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                    
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 1500);
+                }, i * 100);
+            }
+        }
+
+        // Wish Form Functions
+        function submitWish() {
+            const name = document.getElementById('wishName').value || 'Seseorang yang peduli';
+            const message = document.getElementById('wishMessage').value;
+            
+            if (!message.trim()) {
+                alert('Mohon tuliskan doa atau harapanmu terlebih dahulu 💕');
+                return;
+            }
+            
+            // Create new wish element
+            const wishDisplay = document.getElementById('wishDisplay');
+            const newWish = document.createElement('div');
+            newWish.className = 'submitted-wish';
+            newWish.innerHTML = `
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px; margin: 15px 0; transform: translateY(20px); opacity: 0; animation: slideInWish 0.5s ease-out forwards;">
+                    <div style="color: #ff8fab; font-weight: bold; margin-bottom: 10px;">💖 Dari ${name}:</div>
+                    <div style="color: rgba(255,255,255,0.9); line-height: 1.6;">"${message}"</div>
+                </div>
+            `;
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideInWish {
+                    to { transform: translateY(0); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            wishDisplay.appendChild(newWish);
+            
+            // Clear form
+            document.getElementById('wishName').value = '';
+            document.getElementById('wishMessage').value = '';
+            
+            // Show success message
+            const successMsg = document.createElement('div');
+            successMsg.innerHTML = '✨ Doa dan harapanmu telah terkirim! ✨';
+            successMsg.style.position = 'fixed';
+            successMsg.style.top = '50%';
+            successMsg.style.left = '50%';
+            successMsg.style.transform = 'translate(-50%, -50%)';
+            successMsg.style.background = 'rgba(255, 107, 157, 0.9)';
+            successMsg.style.color = 'white';
+            successMsg.style.padding = '20px 40px';
+            successMsg.style.borderRadius = '25px';
+            successMsg.style.fontSize = '1.2rem';
+            successMsg.style.zIndex = '1000';
+            successMsg.style.animation = 'successPop 2s ease-out forwards';
+            
+            const successStyle = document.createElement('style');
+            successStyle.textContent = `
+                @keyframes successPop {
+                    0%, 100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+                    20%, 80% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+                }
+            `;
+            document.head.appendChild(successStyle);
+            
+            document.body.appendChild(successMsg);
+            
+            setTimeout(() => {
+                successMsg.remove();
+            }, 2000);
+            
+            createCelebrationEffect();
+        }
+
+        // Special Surprise Function
+        function createSurprise() {
+            // Redirect to surprise page instead
+            showPage('surprise');
+        }
+
+        // Create floating hearts for surprise page
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            const hearts = ['💖', '💕', '💗', '💓', '❤️', '💝'];
+            heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDelay = Math.random() * 3 + 's';
+            heart.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            
+            const surpriseHearts = document.getElementById('surpriseHearts');
+            if (surpriseHearts) {
+                surpriseHearts.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 10000);
+            }
+        }
+
+        // Massive celebration for surprise page
+        function triggerMassiveCelebration() {
+            // Create massive particle effect
+            for (let i = 0; i < 80; i++) {
+                setTimeout(() => {
+                    createParticle();
+                }, i * 40);
+            }
+            
+            // Create floating hearts burst
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    createFloatingHeart();
+                }, i * 100);
+            }
+            
+            // Fireworks effect
+            const fireworks = ['🎆', '🎇', '✨', '💫', '⭐', '🌟', '💥'];
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.innerHTML = fireworks[Math.floor(Math.random() * fireworks.length)];
+                    firework.style.position = 'fixed';
+                    firework.style.left = Math.random() * 100 + 'vw';
+                    firework.style.top = Math.random() * 100 + 'vh';
+                    firework.style.fontSize = (Math.random() * 40 + 30) + 'px';
+                    firework.style.zIndex = '1000';
+                    firework.style.pointerEvents = 'none';
+                    firework.style.animation = 'fireworkBurst 2s ease-out forwards';
+                    
+                    const fireworkStyle = document.createElement('style');
+                    fireworkStyle.textContent = `
+                        @keyframes fireworkBurst {
+                            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+                            50% { transform: scale(2) rotate(180deg); opacity: 1; }
+                            100% { transform: scale(0) rotate(360deg); opacity: 0; }
+                        }
+                    `;
+                    document.head.appendChild(fireworkStyle);
+                    
+                    document.body.appendChild(firework);
+                    
+                    setTimeout(() => {
+                        firework.remove();
+                    }, 2000);
+                }, i * 150);
+            }
+            
+            // Special celebration messages
+            const celebrationMessages = [
+                '🎉 HAPPY BIRTHDAY! 🎉',
+                '💖 YOU ARE AMAZING! 💖',
+                '🌟 SHINE BRIGHT TODAY! 🌟',
+                '🎂 MAKE A WISH! 🎂',
+                '✨ DREAMS COME TRUE! ✨'
+            ];
+            
+            celebrationMessages.forEach((message, index) => {
+                setTimeout(() => {
+                    const msgElement = document.createElement('div');
+                    msgElement.innerHTML = message;
+                    msgElement.style.position = 'fixed';
+                    msgElement.style.top = '50%';
+                    msgElement.style.left = '50%';
+                    msgElement.style.transform = 'translate(-50%, -50%)';
+                    msgElement.style.fontSize = '3rem';
+                    msgElement.style.color = '#fff';
+                    msgElement.style.textShadow = '0 0 30px rgba(255,107,157,1), 0 0 60px rgba(255,107,157,0.8)';
+                    msgElement.style.zIndex = '2000';
+                    msgElement.style.textAlign = 'center';
+                    msgElement.style.fontWeight = 'bold';
+                    msgElement.style.animation = 'megaCelebration 2.5s ease-out forwards';
+                    msgElement.style.padding = '30px';
+                    msgElement.style.background = 'rgba(255, 107, 157, 0.3)';
+                    msgElement.style.borderRadius = '30px';
+                    msgElement.style.backdropFilter = 'blur(10px)';
+                    
+                    const megaStyle = document.createElement('style');
+                    megaStyle.textContent = `
+                        @keyframes megaCelebration {
+                            0% { transform: translate(-50%, -50%) scale(0) rotate(-360deg); opacity: 0; }
+                            20% { transform: translate(-50%, -50%) scale(1.3) rotate(10deg); opacity: 1; }
+                            80% { transform: translate(-50%, -50%) scale(1.2) rotate(-10deg); opacity: 1; }
+                            100% { transform: translate(-50%, -50%) scale(0) rotate(360deg); opacity: 0; }
+                        }
+                    `;
+                    document.head.appendChild(megaStyle);
+                    
+                    document.body.appendChild(msgElement);
+                    
+                    setTimeout(() => {
+                        msgElement.remove();
+                    }, 2500);
+                }, index * 3000);
+            });
+            
+            // Photo zoom effect
+            const photo = document.getElementById('surprisePhoto');
+            if (photo) {
+                photo.style.transition = 'transform 1s ease';
+                photo.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    photo.style.transform = 'scale(1)';
+                }, 1000);
+            }
+        }
+
+        // General celebration effect
+        function createCelebrationEffect() {
+            const effects = ['🎊', '🎉', '✨', '💫', '⭐', '🌟'];
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const effect = document.createElement('div');
+                    effect.innerHTML = effects[Math.floor(Math.random() * effects.length)];
+                    effect.style.position = 'fixed';
+                    effect.style.left = Math.random() * 100 + 'vw';
+                    effect.style.top = Math.random() * 100 + 'vh';
+                    effect.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                    effect.style.zIndex = '1000';
+                    effect.style.pointerEvents = 'none';
+                    effect.style.animation = 'celebrationEffect 2s ease-out forwards';
+                    
+                    const effectStyle = document.createElement('style');
+                    effectStyle.textContent = `
+                        @keyframes celebrationEffect {
+                            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+                            50% { transform: scale(1.5) rotate(180deg); opacity: 1; }
+                            100% { transform: scale(0) rotate(360deg); opacity: 0; }
+                        }
+                    `;
+                    document.head.appendChild(effectStyle);
+                    
+                    document.body.appendChild(effect);
+                    
+                    setTimeout(() => {
+                        effect.remove();
+                    }, 2000);
+                }, i * 100);
+            }
+        }
+
+        // Initialize animations
+        setInterval(createParticle, 1000);
+
+        // Add entrance animation for memory items
+        function observeMemoryItems() {
+            const memoryItems = document.querySelectorAll('.memory-item');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'slideInTimeline 0.8s ease-out forwards';
+                    }
+                });
+            });
+            
+            memoryItems.forEach(item => observer.observe(item));
+        }
+
+        // Initialize memory observer when memories page is shown
+        const originalShowPage = showPage;
+        showPage = function(pageId) {
+            originalShowPage(pageId);
+            if (pageId === 'memories') {
+                setTimeout(observeMemoryItems, 100);
+            }
+            // Start floating hearts when surprise page is shown
+            if (pageId === 'surprise') {
+                // Create initial hearts
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(() => createFloatingHeart(), i * 300);
+                }
+                // Continue creating hearts
+                const heartInterval = setInterval(() => {
+                    if (document.getElementById('surprise').classList.contains('active')) {
+                        createFloatingHeart();
+                    } else {
+                        clearInterval(heartInterval);
+                    }
+                }, 2000);
+            }
+        };
+
+        // Welcome effect when page loads
+        setTimeout(() => {
+            createCelebrationEffect();
+        }, 1000);
+
+        // Add keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                showPage('home');
+            }
+        });
+    </script>
+</body>
+</html>

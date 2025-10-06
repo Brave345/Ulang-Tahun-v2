@@ -1,0 +1,71 @@
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to bottom right, #fff5f2, #fce4ec);
+      font-family: 'Playfair Display', serif;
+      color: #6C1A2A;
+    }
+
+    /* Mawar animasi */
+    .rose {
+      width: 120px;
+      height: 120px;
+      background: url('images/rose.svg') no-repeat center;
+      background-size: contain;
+      animation: bloom 3s ease-in-out infinite;
+      z-index: 10;
+    }
+
+    @keyframes bloom {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.2) rotate(10deg); }
+    }
+
+    /* Partikel melayang */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: #ff6f91;
+      clip-path: polygon(
+        50% 0%, 61% 35%, 98% 35%, 
+        68% 57%, 79% 91%, 50% 70%, 
+        21% 91%, 32% 57%, 2% 35%, 39% 35%
+      );
+      animation: float 6s infinite ease-in-out;
+      opacity: 0.7;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30vh) rotate(180deg); }
+      100% { transform: translateY(0) rotate(360deg); }
+    }
+
+    /* Background parallax */
+    .parallax-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+      opacity: 0.15;
+      z-index: 0;
+      transform: translateZ(0);
+    }
