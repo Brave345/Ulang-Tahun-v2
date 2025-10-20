@@ -155,8 +155,8 @@
 
         .special-links {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
             margin: 50px 0;
         }
 
@@ -730,9 +730,7 @@
     <!-- Navigation Menu -->
     <nav class="nav-menu">
         <a href="#" class="nav-btn active" onclick="showPage('home')">🏠 Home</a>
-        <a href="#" class="nav-btn" onclick="showPage('memories')">📸 Kenangan</a>
         <a href="#" class="nav-btn" onclick="showPage('letters')">💌 Surat Cinta</a>
-        <a href="#" class="nav-btn" onclick="showPage('gallery')">🖼️ Galeri</a>
         <a href="#" class="nav-btn" onclick="showPage('music')">🎵 Musik Kita</a>
         <a href="#" class="nav-btn" onclick="showPage('wishes')">🌟 Harapan</a>
     </nav>
@@ -747,22 +745,10 @@
             </div>
 
             <div class="special-links">
-                <div class="link-card" onclick="showPage('memories')">
-                    <span class="link-icon">📸</span>
-                    <h3 class="link-title">Memory Lane</h3>
-                    <p class="link-desc">Perjalanan indah kenangan kita bersama dari awal hingga sekarang</p>
-                </div>
-
                 <div class="link-card" onclick="showPage('letters')">
                     <span class="link-icon">💌</span>
                     <h3 class="link-title">Love Letters</h3>
                     <p class="link-desc">Surat-surat cinta yang terpendam di hati untuk dirimu</p>
-                </div>
-
-                <div class="link-card" onclick="showPage('gallery')">
-                    <span class="link-icon">🖼️</span>
-                    <h3 class="link-title">Photo Gallery</h3>
-                    <p class="link-desc">Koleksi momen berharga yang telah kita lalui bersama</p>
                 </div>
 
                 <div class="link-card" onclick="showPage('music')">
@@ -1113,7 +1099,6 @@
         const progressFilled = document.getElementById('progressFilled');
         const currentTimeEl = document.getElementById('currentTime');
         const durationEl = document.getElementById('duration');
-
         // Play specific song
         function playSong(index) {
             currentSongIndex = index;
