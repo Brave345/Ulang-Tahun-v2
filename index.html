@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selamat Ulang Tahun Sayang</title>
+    <title>Happy Birthday, my dear</title>
     <style>
         * {
             margin: 0;
@@ -125,18 +125,26 @@
         }
 
         .title {
-            font-size: 3.8rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #ff6b6b, #feca57, #ff9ff3, #54a0ff);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 4s ease-in-out infinite;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
+    font-size: 4rem;
+    font-weight: 900;
+    background: linear-gradient(90deg, #ff006e, #ffbe0b, #3a86ff, #8338ec, #ff006e);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientMove 6s ease-in-out infinite;
+    text-shadow: 0 4px 25px rgba(255, 255, 255, 0.5);
+    letter-spacing: 2px;
+    line-height: 1.2;
+    text-align: center;
+}
+
+/* animasi shimmer */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 
         @keyframes gradientShift {
             0%, 100% { background-position: 0% 50%; }
@@ -730,9 +738,9 @@
     <!-- Navigation Menu -->
     <nav class="nav-menu">
         <a href="#" class="nav-btn active" onclick="showPage('home')">🏠 Home</a>
-        <a href="#" class="nav-btn" onclick="showPage('letters')">💌 Surat Cinta</a>
-        <a href="#" class="nav-btn" onclick="showPage('music')">🎵 Musik Kita</a>
-        <a href="#" class="nav-btn" onclick="showPage('wishes')">🌟 Harapan</a>
+        <a href="#" class="nav-btn" onclick="showPage('letters')">💌 Love Letters</a>
+        <a href="#" class="nav-btn" onclick="showPage('music')">🎵 Our Soundtrack</a>
+        <a href="#" class="nav-btn" onclick="showPage('wishes')">🌟 Wishes</a>
     </nav>
 
     <!-- HOME PAGE -->
